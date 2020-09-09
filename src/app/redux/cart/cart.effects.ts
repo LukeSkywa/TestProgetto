@@ -1,4 +1,4 @@
-import { addToCart, saveToCart } from './cart.actions';
+import { addToCart, saveToCart, retrieveAllProducts, initCart } from './cart.actions';
 import { Injectable } from "@angular/core";
 import { Observable } from 'rxjs';
 import { Action } from '@ngrx/store';
@@ -15,6 +15,13 @@ export class CartEffects{
             map(product => saveToCart({ product: product.name }))
         ))
     ));
+
+    retrieveAllProducts$: Observable<Action> = createEffect(()=>this.actions$.pipe(
+        ofType(retrieveAllProducts),
+        switchMap(action => this.httpCommunicationsService.retrieveGetCall<{name: string, id: number}[]>("products").pipe(
+            map(products => initCart({ products: products.map(item => item.name) }))
+        ))
+    ))
 
     constructor(private actions$: Actions,
         private httpCommunicationsService: HttpCommunicationsService) {
