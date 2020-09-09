@@ -8,11 +8,13 @@ import { environment } from 'src/environments/environment';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './redux';
+import { CarrelloComponent } from './components/carrello/carrello.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProdottoComponent
+    ProdottoComponent,
+    CarrelloComponent
   ],
   imports: [
     BrowserModule,
